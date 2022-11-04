@@ -33,18 +33,19 @@ export default function PlaceOrder() {
   };
   return (
     <SafeAreaView>
+    <ScrollView>
       <View
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           width: width,
-          height: height,
+          height: height * 1.1,
           backgroundColor: "#fff",
           paddingTop: 50,
         }}
       >
-        <ScrollView>
+        
           <Text
             style={{
               fontSize: 30,
@@ -151,8 +152,8 @@ export default function PlaceOrder() {
           >
             Place Order
           </Button>
-        </ScrollView>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

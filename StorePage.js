@@ -128,7 +128,7 @@ export default function StorePage() {
               color: "white",
               position: "absolute", // child
               top: 80,
-              left: width / 4,
+              left: width / 5,
               borderRadius: 30,
               borderColor: "#E1B107",
               borderWidth: 5,
