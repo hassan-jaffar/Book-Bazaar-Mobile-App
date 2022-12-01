@@ -113,7 +113,7 @@ export default function StorePage() {
       >
         <ImageBackground
           source={{
-            uri: "https://thumbs.dreamstime.com/b/deventer-netherlands-aug-various-second-hand-books-sale-boekenmarkt-book-market-192444951.jpg",
+            uri: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mnx8fGVufDB8fHx8&w=1000&q=80",
           }}
           style={{
             height: 250,

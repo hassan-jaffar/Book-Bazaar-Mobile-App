@@ -9,13 +9,40 @@ import BookPage from "./BookPage";
 import StorePage from "./StorePage";
 import Notifications from "./Notifications";
 import Settings from "./Settings";
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from "@expo/vector-icons";
+import Login from "./Login";
+import Signup from "./Signup";
+import AllStores from "./AllStores";
 
 const Stack = createNativeStackNavigator();
 
 function StackScreen() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        screenOptions={{
+          headerShown: false,
+        }}
+        options={{ header: () => null }}
+        name="Login"
+        component={Login}
+      />
+      <Stack.Screen
+        screenOptions={{
+          headerShown: false,
+        }}
+        options={{ header: () => null }}
+        name="Signup"
+        component={Signup}
+      />
+      <Stack.Screen
+        screenOptions={{
+          headerShown: false,
+        }}
+        options={{ header: () => null }}
+        name="Stores"
+        component={AllStores}
+      />
       <Stack.Screen
         screenOptions={{
           headerShown: false,
@@ -71,36 +98,25 @@ export default function App() {
         }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          if (route.name === 'Home') {
-            iconName = focused
-            ? 'ios-home'
-            : 'ios-home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused
-            ? 'settings'
-            : 'settings-outline';
-          } else if (route.name === 'Notifications') {
-            iconName = focused
-            ? 'notifications'
-            : 'notifications-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused
-            ? 'list'
-            : 'list-outline';
-          }
-    
-    return <Ionicons name={iconName} size={size} color={color}     />;
-       },
-    })}
+            let iconName;
+            if (route.name === "Home") {
+              iconName = focused ? "ios-home" : "ios-home-outline";
+            } else if (route.name === "Settings") {
+              iconName = focused ? "settings" : "settings-outline";
+            } else if (route.name === "Notifications") {
+              iconName = focused ? "notifications" : "notifications-outline";
+            } else if (route.name === "Profile") {
+              iconName = focused ? "list" : "list-outline";
+            }
 
-    >
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
         <Tab.Screen
           name="Home"
           options={{ header: () => null }}
           component={StackScreen}
-          
-  
         />
         <Tab.Screen
           name="Settings"
