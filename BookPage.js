@@ -11,14 +11,14 @@ import * as React from "react";
 import { Button, Card, Title } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-export default function BookPage() {
+export default function BookPage({route}) {
   var width = Dimensions.get("window").width;
   var height = Dimensions.get("window").height;
 
   const navigation = useNavigation();
 
   const move = () => {
-    navigation.navigate("PlaceOrder");
+    navigation.navigate("PlaceOrder",{val:route.params.val});
   };
   const moves = () => {
     navigation.navigate("Cart");
@@ -31,17 +31,17 @@ export default function BookPage() {
           style={{
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
             textAlign: "center",
-            height: height*1.2,
+            height: height,
             width: width,
             backgroundColor: "#fff",
-            paddingTop: 50,
           }}
         >
           <Text
             style={{
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: "bold",
               borderColor: "#E1B107",
               borderRadius: 25,
@@ -49,13 +49,14 @@ export default function BookPage() {
               padding: 10,
               alignSelf: "center",
               textAlign: "center",
+              width: 0.9*width
             }}
           >
-            Book Title
+            {route.params.val.bookName}
           </Text>
           <Image
             source={{
-              uri: "https://www.rd.com/wp-content/uploads/2019/11/heart-book-e1574702487427-scaled.jpg",
+              uri: `http://192.168.100.72:5000${route.params.val.image}`,
             }}
             style={{
               height: 240,
@@ -72,14 +73,15 @@ export default function BookPage() {
               padding: 10,
             }}
           >
-            Price: PKR 3000
+            Price: PKR {route.params.val.price}
           </Text>
           <View
             style={{
               backgroundColor: "#E1B107",
               width: 0.9 * width,
               margin: 10,
-              height: 50,
+              height: 150,
+              padding:10,
               borderBottomLeftRadius: 30,
               borderTopRightRadius: 30,
               justifyContent: "center",
@@ -89,9 +91,20 @@ export default function BookPage() {
             <Text
               style={{
                 fontSize: 16,
+                fontWeight:"bold",
+                marginBottom:20
               }}
             >
-              Author Name and Description
+     {route.params.val.authorName}
+ 
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+              }}
+            >
+
+     {route.params.val.description}
             </Text>
           </View>
           <View
@@ -125,87 +138,6 @@ export default function BookPage() {
             >
               Add to Cart
             </Button>
-          </View>
-
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "bold",
-            }}
-          >
-            Similar Books
-          </Text>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-          <ScrollView horizontal={true}>
-            <Card
-              style={{
-                backgroundColor: "#E1B107",
-                borderRadius: 20,
-                padding: 20,
-                margin: 10,
-              }}
-            >
-              <Image
-                source={{
-                  uri: "https://www.rd.com/wp-content/uploads/2019/11/heart-book-e1574702487427-scaled.jpg",
-                }}
-                style={{
-                  height: 100,
-                  borderRadius: 20,
-                }}
-              />
-              <Title style={{ fontWeight: "bold", fontSize: 14 }}>
-                Book Name
-              </Title>
-            </Card>
-            <Card
-              style={{
-                backgroundColor: "#E1B107",
-                borderRadius: 20,
-                padding: 20,
-                margin: 10,
-              }}
-            >
-              <Image
-                source={{
-                  uri: "https://www.rd.com/wp-content/uploads/2019/11/heart-book-e1574702487427-scaled.jpg",
-                }}
-                style={{
-                  height: 100,
-                  borderRadius: 20,
-                }}
-              />
-              <Title style={{ fontWeight: "bold", fontSize: 14 }}>
-                Book Name
-              </Title>
-            </Card>
-            <Card
-              style={{
-                backgroundColor: "#E1B107",
-                borderRadius: 20,
-                padding: 20,
-                margin: 10,
-              }}
-            >
-              <Image
-                source={{
-                  uri: "https://www.rd.com/wp-content/uploads/2019/11/heart-book-e1574702487427-scaled.jpg",
-                }}
-                style={{
-                  height: 100,
-                  borderRadius: 20,
-                }}
-              />
-              <Title style={{ fontWeight: "bold", fontSize: 14 }}>
-                Book Name
-              </Title>
-            </Card>
-            </ScrollView>
           </View>
         </View>
       </ScrollView>

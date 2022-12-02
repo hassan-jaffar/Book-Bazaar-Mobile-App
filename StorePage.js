@@ -15,6 +15,7 @@ import { Col, Row, Grid } from "react-native-paper-grid";
 import { BottomNavigation } from "react-native-paper";
 import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
+import productService from "./Services/services/ProductsServices";
 
 const books = [
   {
@@ -62,41 +63,35 @@ const RecentsRoute = () => <Text>Recents</Text>;
 
 const NotificationsRoute = () => <Text>Notifications</Text>;
 
-export default function StorePage() {
+export default function StorePage({ route }) {
   var width = Dimensions.get("window").width;
   var height = Dimensions.get("window").height;
 
   const navigation = useNavigation();
 
-  const onPress = () => {
-    navigation.navigate("BookPage");
+  const onPress = (val) => {
+    navigation.navigate("BookPage",{val:val});
   }
+  const [products,setProducts]=React.useState([]);
+  React.useEffect(() => {
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    {
-      key: "music",
-      title: "Favorites",
-      focusedIcon: "heart",
-      unfocusedIcon: "heart-outline",
-    },
-    { key: "albums", title: "Albums", focusedIcon: "album" },
-    { key: "recents", title: "Recents", focusedIcon: "history" },
-    {
-      key: "notifications",
-      title: "Notifications",
-      focusedIcon: "bell",
-      unfocusedIcon: "bell-outline",
-    },
-  ]);
+    if (route.params) {
+      productService.getProducts(route.params.val.user).then((val) => {
+     
+   setProducts(val.products);
+   setori(val.products);
+      }).catch((e)=>{
+        console.log(e)
+      });
+   
 
-  const renderScene = BottomNavigation.SceneMap({
-    music: MusicRoute,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
-  });
+    }},[])
+  const [ori,setori]=React.useState([]);
 
+
+  const search=(e)=>{
+    setProducts(ori.filter((val)=>val.bookName.toLowerCase().includes(e.toLowerCase())));
+  }
   return (
     <SafeAreaView>
       <View
@@ -156,7 +151,7 @@ export default function StorePage() {
           </Text>
         </ImageBackground>
         <TextInput
-          placeholder="Enter your service description"
+          placeholder="Search by Book Name"
           style={{
             marginTop: -20,
             width: 0.9 * width,
@@ -167,40 +162,36 @@ export default function StorePage() {
             paddingLeft: 30,
             backgroundColor: "white",
           }}
+          onChangeText={search}
         ></TextInput>
-        {/* <BottomNavigation
-            navigationState={{ index, routes }}
-            onIndexChange={setIndex}
-            renderScene={renderScene}
-          /> */}
         <ScrollView>
           <View style={styles.container}>
-            {books.map((book) => {
+            {products.map((book) => {
               return (
                 <View
                   style={{
                     backgroundColor: "#E1B107",
                     width: 0.9 * width,
                     margin: 10,
-                    height: 100,
+                    height: 140,
                     borderBottomLeftRadius: 30,
                     borderTopRightRadius: 30,
                   }}
                 >
-                  <TouchableOpacity onPress={onPress}>
+                  <TouchableOpacity onPress={()=>onPress(book)}>
                     <Grid>
                       <Row>
                         <Col size={2}>
                           <Image
-                            source={{ uri: book.image }}
+                            source={{ uri: `http://192.168.100.72:5000${book.image}` }}
                             style={styles.image}
                           ></Image>
                         </Col>
                         <Col size={4}>
-                          <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                            {book.name}
+                          <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                            {book.bookName}
                           </Text>
-                          <Text>{book.author}</Text>
+                          <Text>{book.authorName}</Text>
                         </Col>
                         <Col size={3}>
                           <Text style={{ marginTop: 5 }}>Price</Text>

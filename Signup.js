@@ -7,10 +7,12 @@ import {
   TextInput,
   Image,
   ImageBackground,
+  Alert,
 } from "react-native";
 import * as React from "react";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import UerServices from "./Services/services/UserServices";
 
 export default function Signup() {
   var width = Dimensions.get("window").width;
@@ -20,8 +22,15 @@ export default function Signup() {
     navigation.navigate("Login");
   };
   const moves = () => {
-    navigation.navigate("Stores");
-  };
+    console.log(email);
+    UerServices.Register(username,email,password).then((val)=>{
+    navigation.navigate("Login");
+  }).catch((val)=>{
+     Alert.alert(val.errors[0].msg);
+    })  };
+  const [email,setEmail]=React.useState("");
+  const [password,setPassword]=React.useState("");
+  const [username,setUserName]=React.useState("");
   return (
     <SafeAreaView>
       <View
@@ -42,7 +51,6 @@ export default function Signup() {
             style={{
               height: height,
               width: width,
-              opacity: 0.8,
               position: "relative", //parent
             }}
           >
@@ -63,7 +71,6 @@ export default function Signup() {
                   padding: 10,
                   width: 0.9 * width,
                   textAlign: "center",
-                  marginTop: 20,
                 }}
               >
                 SIGNUP
@@ -76,7 +83,6 @@ export default function Signup() {
                   padding: 10,
                   width: 0.9 * width,
                   textAlign: "center",
-                  marginTop: 10,
                 }}
               >
                 Username
@@ -84,7 +90,7 @@ export default function Signup() {
               <TextInput
                 placeholder="Your Username"
                 style={{
-                  marginBottom: 20,
+                  marginBottom: 10,
                   width: 0.9 * width,
                   borderRadius: 30,
                   borderColor: "#E1B107",
@@ -93,6 +99,7 @@ export default function Signup() {
                   paddingLeft: 30,
                   backgroundColor: "white",
                 }}
+                onChangeText={(e)=>setUserName(e)}
               ></TextInput>
               <Text
                 style={{
@@ -102,7 +109,6 @@ export default function Signup() {
                   padding: 10,
                   width: 0.9 * width,
                   textAlign: "center",
-                  marginTop: 10,
                 }}
               >
                 Email
@@ -110,7 +116,7 @@ export default function Signup() {
               <TextInput
                 placeholder="Your Email"
                 style={{
-                  marginBottom: 20,
+                  marginBottom: 10,
                   width: 0.9 * width,
                   borderRadius: 30,
                   borderColor: "#E1B107",
@@ -119,6 +125,7 @@ export default function Signup() {
                   paddingLeft: 30,
                   backgroundColor: "white",
                 }}
+                onChangeText={(e)=>setEmail(e)}
               ></TextInput>
               <Text
                 style={{
@@ -128,7 +135,6 @@ export default function Signup() {
                   padding: 10,
                   width: 0.9 * width,
                   textAlign: "center",
-                  marginTop: 10,
                 }}
               >
                 Password
@@ -136,7 +142,7 @@ export default function Signup() {
               <TextInput
                 placeholder="Your Password"
                 style={{
-                  marginBottom: 20,
+                  marginBottom: 10,
                   width: 0.9 * width,
                   borderRadius: 30,
                   borderColor: "#E1B107",
@@ -145,6 +151,7 @@ export default function Signup() {
                   paddingLeft: 30,
                   backgroundColor: "white",
                 }}
+                onChangeText={(e)=>setPassword(e)}
               ></TextInput>
               <Button
                 textColor="#E1B107"
@@ -154,7 +161,7 @@ export default function Signup() {
                   borderWidth: 3,
                   padding: 10,
                   width: 0.3 * width,
-                  marginTop: 50,
+                  marginTop: 10,
                   marginBottom: 50,
                   alignSelf: "center",
                 }}
@@ -166,16 +173,16 @@ export default function Signup() {
               <Button
                 textColor="#E1B107"
                 style={{
-                  borderColor: "#E1B107",
-                  borderRadius: 25,
-                  borderWidth: 3,
+                  // borderColor: "#E1B107",
+                  // borderRadius: 25,
+                  // borderWidth: 3,
                   padding: 10,
                   width: 0.3 * width,
                   alignSelf: "center",
                 }}
                 onPress={move}
               >
-                Login
+                LOGIN
               </Button>
             </View>
           </ImageBackground>

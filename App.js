@@ -16,124 +16,124 @@ import AllStores from "./AllStores";
 
 const Stack = createNativeStackNavigator();
 
-function StackScreen() {
+export default function App() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="Login"
-        component={Login}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="Signup"
-        component={Signup}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="Stores"
-        component={AllStores}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="StorePage"
-        component={StorePage}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="BookPage"
-        component={BookPage}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="PlaceOrder"
-        component={PlaceOrder}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="MyOrders"
-        component={MyOrders}
-      />
-      <Stack.Screen
-        screenOptions={{
-          headerShown: false,
-        }}
-        options={{ header: () => null }}
-        name="Cart"
-        component={Cart}
-      />
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="Signup"
+          component={Signup}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="Stores"
+          component={StackScreen}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="StorePage"
+          component={StorePage}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="BookPage"
+          component={BookPage}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="PlaceOrder"
+          component={PlaceOrder}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="MyOrders"
+          component={MyOrders}
+        />
+        <Stack.Screen
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{ header: () => null }}
+          name="Cart"
+          component={Cart}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+export function StackScreen() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor: "#E1B107",
-          inactiveTintColor: "gray",
-        }}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === "Home") {
-              iconName = focused ? "ios-home" : "ios-home-outline";
-            } else if (route.name === "Settings") {
-              iconName = focused ? "settings" : "settings-outline";
-            } else if (route.name === "Notifications") {
-              iconName = focused ? "notifications" : "notifications-outline";
-            } else if (route.name === "Profile") {
-              iconName = focused ? "list" : "list-outline";
-            }
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: "#E1B107",
+        inactiveTintColor: "gray",
+      }}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === "Home") {
+            iconName = focused ? "ios-home" : "ios-home-outline";
+          } else if (route.name === "Settings") {
+            iconName = focused ? "settings" : "settings-outline";
+          } else if (route.name === "Orders") {
+            iconName = focused ? "list" : "list-outline";
+          } else if (route.name === "Profile") {
+            iconName = focused ? "list" : "list-outline";
+          }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-      >
-        <Tab.Screen
-          name="Home"
-          options={{ header: () => null }}
-          component={StackScreen}
-        />
-        <Tab.Screen
-          name="Settings"
-          options={{ header: () => null }}
-          component={Settings}
-        />
-        <Tab.Screen
-          name="Notifications"
-          options={{ header: () => null }}
-          component={Notifications}
-        />
-        <Tab.Screen
-          name="Profile"
-          options={{ header: () => null }}
-          component={Profile}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        options={{ header: () => null }}
+        component={AllStores}
+      />
+      <Tab.Screen
+        name="Orders"
+        options={{ header: () => null }}
+        component={MyOrders}
+      />
+      <Tab.Screen
+        name="Settings"
+        options={{ header: () => null }}
+        component={Settings}
+      />
+      <Tab.Screen
+        name="Profile"
+        options={{ header: () => null }}
+        component={Profile}
+      />
+    </Tab.Navigator>
   );
 }

@@ -13,43 +13,65 @@ import {
 import { Card, Title } from "react-native-paper";
 import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
+import productService from "./Services/services/ProductsServices";
 
-const stores = [
-  {
-    image:
-      "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
-    name: "Store IOP",
-  },
-  {
-    image:
-      "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
-    name: "Store ABC",
-  },
-  {
-    image:
-      "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
-    name: "Store XYZ",
-  },
-  {
-    image:
-      "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
-    name: "Store ASD",
-  },
-  {
-    image:
-      "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
-    name: "Store DSA",
-  },
-];
+// const stores = [
+//   {
+//     image:
+//       "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
+//     name: "Store IOP",
+//   },
+//   {
+//     image:
+//       "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
+//     name: "Store ABC",
+//   },
+//   {
+//     image:
+//       "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
+//     name: "Store XYZ",
+//   },
+//   {
+//     image:
+//       "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
+//     name: "Store ASD",
+//   },
+//   {
+//     image:
+//       "https://media.istockphoto.com/id/1129874863/photo/books-on-display-in-the-corner-of-a-second-hand-bookstore.jpg?b=1&s=170667a&w=0&k=20&c=6L29BYGOstzR6K3QInuOEwdMG-qNQa4Qc8by6tbq-pA=",
+//     name: "Store DSA",
+//   },
+// ];
 export default function AllStores() {
   var width = Dimensions.get("window").width;
   var height = Dimensions.get("window").height;
-
+  React.useEffect(() => {
+    booking();
+  }, []);
+  const [stores,setStores]=React.useState([]);
+  const [ori,setOriginal]=React.useState([]);
+  const booking = async () => {
+    // const user = await AsyncStorage.getItem("user");
+    // const userInfo = JSON.parse(user);
+    productService.getStores().then((val) => {
+     
+     
+      setStores(val.stores);
+      setOriginal(val.stores);
+    }).catch((e)=>{
+      console.log(e)
+    });
+  };
+  
   const navigation = useNavigation();
 
-  const onPress = () => {
-    navigation.navigate("StorePage");
+  const onPress = (val) => {
+
+    navigation.navigate("StorePage",{ val: val});
   };
+  const search=(e)=>{
+    setStores(ori.filter((val)=>val.storeName.toLowerCase().includes(e.toLowerCase())));
+  }
   return (
     <SafeAreaView>
       <View
@@ -109,7 +131,8 @@ export default function AllStores() {
           </Text>
         </ImageBackground>
         <TextInput
-          placeholder="Enter your service description"
+          placeholder="Search by Store Name"
+          onChangeText={search}
           style={{
             marginTop: -20,
             width: 0.9 * width,
@@ -125,7 +148,7 @@ export default function AllStores() {
           <View style={styles.container}>
             {stores.map((store) => {
               return (
-                <TouchableOpacity onPress={onPress}>
+                <TouchableOpacity onPress={()=>onPress(store)}>
                   <Card
                     style={{
                       backgroundColor: "#E1B107",
@@ -137,9 +160,12 @@ export default function AllStores() {
                       alignItems: "center"
                     }}
                   >
-                    <Image source={{ uri: store.image }} style={styles.image} />
+                    <Image source={{ uri: `http://192.168.100.72:5000${store.image}` }} style={styles.image} />
                     <Title style={{ fontWeight: "bold", fontSize: 20 }}>
-                      {store.name}
+                      {store.storeName}
+                    </Title>
+                    <Title style={{  fontSize: 14 }}>
+                      {store.ownerName}
                     </Title>
                   </Card>
                 </TouchableOpacity>

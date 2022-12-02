@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Col, Row, Grid } from "react-native-paper-grid";
 import * as React from "react";
+import productService from "./Services/services/ProductsServices";
 
 const orders = [
   {
@@ -65,6 +66,14 @@ var width = Dimensions.get("window").width;
 var height = Dimensions.get("window").height;
 
 export default function MyOrders() {
+  const [orders,setOrders]=React.useState([])
+  React.useEffect(()=>{
+productService.getOrders().then((val)=>{
+setOrders(val.myOrders);
+}).catch((e)=>{
+  console.log(e);
+})
+  },[])
   return (
     <SafeAreaView>
       <View
@@ -95,7 +104,7 @@ export default function MyOrders() {
           </Text>
 
           <View style={styles.container}>
-            {orders.map((order) => {
+            {orders.map((order,index) => {
               return (
                 <View
                   style={{
@@ -109,21 +118,21 @@ export default function MyOrders() {
                     <Row>
                       <Col size={5}>
                         <Text style={{ fontWeight: "bold" }}>
-                          Order No: #{order.orderno}
+                          Order No: #{index+1}
                         </Text>
-                        <Text>Status: {order.status}</Text>
+                        <Text>Status: {order.isPending?"pending":order.isComplete?"Complete":"processing"}</Text>
                         <Text
                           style={{
                             color: "red",
                             marginTop: 10,
                           }}
                         >
-                          {order.address}
+                          {order.shippingAddress.address}
                         </Text>
                       </Col>
                       <Col size={3}>
                         <Text style={{ fontWeight: "bold" }}>Order Value</Text>
-                        <Text>PKR {order.price}</Text>
+                        <Text>PKR {order.orderItems[0].price}</Text>
                         <Text>{order.date}</Text>
                       </Col>
                     </Row>
