@@ -183,7 +183,7 @@ export default function StorePage({ route }) {
                       <Row>
                         <Col size={2}>
                           <Image
-                            source={{ uri: `http://192.168.100.72:5000${book.image}` }}
+                            source={{ uri: `http://192.168.100.18:5000${book.image}` }}
                             style={styles.image}
                           ></Image>
                         </Col>

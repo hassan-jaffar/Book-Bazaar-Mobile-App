@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-axios.defaults.baseURL = "http://192.168.100.72:5000/api/";
+axios.defaults.baseURL = "http://192.168.100.18:5000/api/";
 
 class GenericServices {
   get = (url) =>

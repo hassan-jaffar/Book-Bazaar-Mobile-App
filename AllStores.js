@@ -160,7 +160,7 @@ export default function AllStores() {
                       alignItems: "center"
                     }}
                   >
-                    <Image source={{ uri: `http://192.168.100.72:5000${store.image}` }} style={styles.image} />
+                    <Image source={{ uri: `http://192.168.100.18:5000${store.image}` }} style={styles.image} />
                     <Title style={{ fontWeight: "bold", fontSize: 20 }}>
                       {store.storeName}
                     </Title>

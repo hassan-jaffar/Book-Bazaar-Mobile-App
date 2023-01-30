@@ -106,9 +106,7 @@ export function StackScreen() {
             iconName = focused ? "settings" : "settings-outline";
           } else if (route.name === "Orders") {
             iconName = focused ? "list" : "list-outline";
-          } else if (route.name === "Profile") {
-            iconName = focused ? "list" : "list-outline";
-          }
+          } 
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -124,16 +122,8 @@ export function StackScreen() {
         options={{ header: () => null }}
         component={MyOrders}
       />
-      <Tab.Screen
-        name="Settings"
-        options={{ header: () => null }}
-        component={Settings}
-      />
-      <Tab.Screen
-        name="Profile"
-        options={{ header: () => null }}
-        component={Profile}
-      />
+   
+  
     </Tab.Navigator>
   );
 }

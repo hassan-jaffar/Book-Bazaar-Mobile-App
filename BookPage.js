@@ -56,7 +56,7 @@ export default function BookPage({route}) {
           </Text>
           <Image
             source={{
-              uri: `http://192.168.100.72:5000${route.params.val.image}`,
+              uri: `http://192.168.100.18:5000${route.params.val.image}`,
             }}
             style={{
               height: 240,
@@ -80,7 +80,7 @@ export default function BookPage({route}) {
               backgroundColor: "#E1B107",
               width: 0.9 * width,
               margin: 10,
-              height: 150,
+              height: 200,
               padding:10,
               borderBottomLeftRadius: 30,
               borderTopRightRadius: 30,
@@ -100,7 +100,7 @@ export default function BookPage({route}) {
             </Text>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 12,
               }}
             >
 
@@ -126,18 +126,7 @@ export default function BookPage({route}) {
               Buy Now
             </Button>
 
-            <Button
-              style={{
-                borderColor: "#E1B107",
-                borderRadius: 25,
-                borderWidth: 3,
-                padding: 10,
-                margin: 10
-              }}
-              onPress={moves}
-            >
-              Add to Cart
-            </Button>
+          
           </View>
         </View>
       </ScrollView>
