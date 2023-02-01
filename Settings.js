@@ -28,11 +28,12 @@ import {
           }}
         >
           <ScrollView>
+        
             <Text
               style={{
-                fontSize: 24,
+                fontSize: 16,
                 fontWeight: "bold",
-                color: "#E1B107",
+                color: "black",
                 padding: 10,
                 width: 0.9 * width,
                 textAlign: "center",
@@ -41,7 +42,7 @@ import {
                 borderBottomWidth: 2
               }}
             >
-              Settings
+             Contact No:0304xxxxxx
             </Text>
             <Text
               style={{
@@ -56,7 +57,7 @@ import {
                 borderBottomWidth: 2
               }}
             >
-              Terms and Conditions
+            Email:bookbazar@gmail.com 
             </Text>
             <Text
               style={{
@@ -71,7 +72,7 @@ import {
                 borderBottomWidth: 2
               }}
             >
-              Privacy Policy 
+            Fax:2738239xxxx
             </Text>
             <Text
               style={{
@@ -86,8 +87,9 @@ import {
                 borderBottomWidth: 2
               }}
             >
-              Language
+            Address:Comsats Uni Lahore
             </Text>
+          
           </ScrollView>
         </View>
       </SafeAreaView>

@@ -102,8 +102,8 @@ export function StackScreen() {
           let iconName;
           if (route.name === "Home") {
             iconName = focused ? "ios-home" : "ios-home-outline";
-          } else if (route.name === "Settings") {
-            iconName = focused ? "settings" : "settings-outline";
+          } else if (route.name === "Support") {
+            iconName = focused ? "contact-support" : "contact-support-outline";
           } else if (route.name === "Orders") {
             iconName = focused ? "list" : "list-outline";
           } 
@@ -117,12 +117,17 @@ export function StackScreen() {
         options={{ header: () => null }}
         component={AllStores}
       />
+
       <Tab.Screen
         name="Orders"
         options={{ header: () => null }}
         component={MyOrders}
       />
-   
+      <Tab.Screen
+        name="Support"
+        options={{ header: () => null }}
+        component={Settings}
+      />
   
     </Tab.Navigator>
   );
